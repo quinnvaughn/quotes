@@ -1,31 +1,20 @@
-import { Line } from "../CreateQuoteForm"
-import { FormikHandlers, ArrayHelpers } from "formik"
+import { Inputs } from "../CreateQuoteForm"
+import { ArrayHelpers, useFormikContext } from "formik"
 import { LineInput } from "./LineInput"
 import { Stack } from "../../../../components/Stack/Stack"
 
 type LineProps = {
-  lines: Line[]
-  characters: string[]
-  handleChange: FormikHandlers["handleChange"]
   remove: ArrayHelpers["remove"]
 }
 
-const LineList: React.FC<LineProps> = ({
-  lines,
-  handleChange,
-  remove,
-  characters,
-}) => {
+const LineList: React.FC<LineProps> = ({ remove }) => {
+  const {
+    values: { lines },
+  } = useFormikContext<Inputs>()
   return (
     <Stack flexDirection="column" spacing={12}>
       {lines.map((line, idx) => (
-        <LineInput
-          characters={characters}
-          remove={remove}
-          character={line.character}
-          handleChange={handleChange}
-          idx={idx}
-        />
+        <LineInput remove={remove} character={line.character} idx={idx} />
       ))}
     </Stack>
   )

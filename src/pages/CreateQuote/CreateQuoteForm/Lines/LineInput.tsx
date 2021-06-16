@@ -1,4 +1,4 @@
-import { ArrayHelpers, FormikHandlers } from "formik"
+import { ArrayHelpers, useFormikContext } from "formik"
 import {
   CustomLineInput,
   CustomSelect,
@@ -6,25 +6,20 @@ import {
   LineTop,
 } from "./Lines.styles"
 import { StyledLabel } from "../../FormInput/FormInput.styles"
-import { useQuoteState } from "../../../../hooks/useQuoteState"
 import { Stack } from "../../../../components/Stack/Stack"
+import { Inputs } from "../CreateQuoteForm"
 
 type LineInputProps = {
-  handleChange: FormikHandlers["handleChange"]
   idx: number
   character: string
-  characters: string[]
   remove: ArrayHelpers["remove"]
 }
 
-const LineInput: React.FC<LineInputProps> = ({
-  idx,
-  handleChange,
-  character,
-  characters,
-  remove,
-}) => {
-  const { state } = useQuoteState()
+const LineInput: React.FC<LineInputProps> = ({ idx, character, remove }) => {
+  const {
+    values: { characters },
+    handleChange,
+  } = useFormikContext<Inputs>()
   return (
     <Stack flexDirection="column" spacing={8}>
       <LineTop>

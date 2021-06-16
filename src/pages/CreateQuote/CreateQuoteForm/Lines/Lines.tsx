@@ -1,23 +1,18 @@
-import { FieldArrayRenderProps, FormikHandlers } from "formik"
+import { FieldArrayRenderProps, useFormikContext } from "formik"
 import { Button } from "../../../../components/Button/Button"
 import { Stack } from "../../../../components/Stack/Stack"
-import { Line } from "../CreateQuoteForm"
+import { Inputs } from "../CreateQuoteForm"
 import { LineList } from "./LineList"
 import { LinesTop, LinesTitle } from "./Lines.styles"
 
 type LineProps = {
-  lines: Line[]
-  characters: string[]
-  handleChange: FormikHandlers["handleChange"]
   arrayHelpers: FieldArrayRenderProps
 }
 
-const Lines: React.FC<LineProps> = ({
-  lines,
-  handleChange,
-  characters,
-  arrayHelpers: { insert, remove },
-}) => {
+const Lines: React.FC<LineProps> = ({ arrayHelpers: { insert, remove } }) => {
+  const {
+    values: { lines },
+  } = useFormikContext<Inputs>()
   return (
     <Stack flexDirection="column" spacing={4}>
       <LinesTop>
@@ -30,12 +25,7 @@ const Lines: React.FC<LineProps> = ({
           Add Line
         </Button>
       </LinesTop>
-      <LineList
-        characters={characters}
-        remove={remove}
-        handleChange={handleChange}
-        lines={lines}
-      />
+      <LineList remove={remove} />
     </Stack>
   )
 }

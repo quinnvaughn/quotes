@@ -1,25 +1,21 @@
-import { FieldArrayRenderProps, FormikHelpers } from "formik"
+import { FieldArrayRenderProps, useFormikContext } from "formik"
 import { useState } from "react"
 import { Button } from "../../../../components/Button/Button"
 import { Stack } from "../../../../components/Stack/Stack"
 import { Tag } from "../../../../components/Tag/Tag"
 import { StyledLabel } from "../../FormInput/FormInput.styles"
-import { Inputs, Line } from "../CreateQuoteForm"
+import { Inputs } from "../CreateQuoteForm"
 import { CharacterInput } from "./Character.styles"
 
 type Props = {
   arrayHelpers: FieldArrayRenderProps
-  characters: string[]
-  lines: Line[]
-  setFieldValue: FormikHelpers<Inputs>["setFieldValue"]
 }
 
-const Characters: React.FC<Props> = ({
-  arrayHelpers: { insert, remove },
-  characters,
-  setFieldValue,
-  lines,
-}) => {
+const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
+  const {
+    setFieldValue,
+    values: { lines, characters },
+  } = useFormikContext<Inputs>()
   const [text, setText] = useState("")
 
   const removeCharactersEverywhere = (character: string, idx: number) => {

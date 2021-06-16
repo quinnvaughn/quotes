@@ -1,12 +1,11 @@
 import styled from "styled-components"
-import { animated } from "react-spring"
 import { ToastTypes } from "../../hooks/useToast"
 
 type StyledToastProps = {
   toastType: ToastTypes
 }
 
-const StyledToast = styled(animated.div)<StyledToastProps>`
+const StyledToast = styled.div<StyledToastProps>`
   background-color: ${(p) =>
     p.toastType === "success"
       ? p.theme.colors.toast.success

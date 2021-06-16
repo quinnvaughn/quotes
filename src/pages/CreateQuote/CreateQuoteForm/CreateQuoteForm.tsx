@@ -45,32 +45,16 @@ const CreateQuoteForm = () => {
       {(props) => (
         <Form>
           <Stack flexDirection="column" spacing={30}>
-            <Show
-              setFieldValue={props.setFieldValue}
-              handleChange={props.handleChange}
-              show={props.values.show}
-            />
+            <Show />
             <FieldArray
               name="characters"
               render={(arrayHelpers) => (
-                <Characters
-                  lines={props.values.lines}
-                  setFieldValue={props.setFieldValue}
-                  arrayHelpers={arrayHelpers}
-                  characters={props.values.characters}
-                />
+                <Characters arrayHelpers={arrayHelpers} />
               )}
             />
             <FieldArray
               name="lines"
-              render={(arrayHelpers) => (
-                <Lines
-                  characters={props.values.characters}
-                  arrayHelpers={arrayHelpers}
-                  handleChange={props.handleChange}
-                  lines={props.values.lines}
-                />
-              )}
+              render={(arrayHelpers) => <Lines arrayHelpers={arrayHelpers} />}
             />
             <FormInput label="Link" onChange={props.handleChange} name="link" />
             <Button disabled={!props.isValid} type="submit">
