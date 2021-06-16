@@ -1,11 +1,12 @@
 import React from "react"
-import styled from "styled-components"
 import { Stack } from "../components/Stack/Stack"
 import { useReducer } from "react"
+import { Toast } from "../components/Toast/Toast"
+import { ToastContainer } from "../components/Toast/Toast.styles"
 
-type ToastTypes = "success" | "error"
+export type ToastTypes = "success" | "error"
 
-type ToastProps = {
+export type ToastProps = {
   message: string
   type: ToastTypes
   id: string
@@ -27,31 +28,6 @@ type Props = {
 }
 
 const ToastContext = React.createContext<Props | undefined>(undefined)
-
-const ToastContainer = styled.div`
-  position: fixed;
-  top: ${(p) => p.theme.sizes.md};
-  right: ${(p) => p.theme.sizes.md};
-`
-
-type StyledToastProps = {
-  toastType: ToastTypes
-}
-
-const StyledToast = styled.div<StyledToastProps>`
-  background-color: ${(p) =>
-    p.toastType === "success"
-      ? p.theme.colors.toast.success
-      : p.theme.colors.toast.error};
-  cursor: pointer;
-  font-size: ${(p) => p.theme.sizes.md};
-  padding: ${(p) => p.theme.sizes.md};
-  color: ${(p) => p.theme.colors.text.white};
-`
-
-const Toast: React.FC<ToastProps> = ({ message, type, id }) => {
-  return <StyledToast toastType={type}>{message}</StyledToast>
-}
 
 function toastReducer(state: State, action: Action): State {
   switch (action.type) {
@@ -83,7 +59,7 @@ export const ToastProvider: React.FC<{}> = ({ children }) => {
         <Stack flexDirection="column" spacing={8}>
           {state.toasts &&
             state.toasts.map(({ id, message, type }) => (
-              <Toast id={id} key={id} type={type} message={message} />
+              <Toast key={id} type={type} message={message} />
             ))}
         </Stack>
       </ToastContainer>
