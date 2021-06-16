@@ -26,6 +26,7 @@ const theme: DefaultTheme = {
     },
     gray: {
       light: "#d3d3d3",
+      medium: "#808080",
     },
     text: {
       black: "#0D0106",

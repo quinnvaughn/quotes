@@ -10,7 +10,7 @@ const RequiredTag = styled.span`
 `
 
 const OptionalTag = styled.span`
-  color: ${(p) => p.theme.colors.gray.light};
+  color: ${(p) => p.theme.colors.gray.medium};
 `
 
 export { StyledLabel, RequiredTag, OptionalTag }
