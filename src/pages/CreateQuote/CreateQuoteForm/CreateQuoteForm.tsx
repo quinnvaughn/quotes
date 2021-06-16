@@ -1,4 +1,5 @@
 import { FieldArray, Formik, Form } from "formik"
+import * as yup from "yup"
 import { Button } from "../../../components/Button/Button"
 import { FormInput } from "./FormInput/FormInput"
 import { Show } from "./Show/Show"
@@ -6,6 +7,7 @@ import { QuoteType, useQuoteState } from "../../../hooks/useQuoteState"
 import { Lines } from "./Lines/Lines"
 import { Characters } from "./Character/Characters"
 import { Stack } from "../../../components/Stack/Stack"
+import { useToast } from "../../../hooks/useToast"
 
 export type Line = {
   character: string
@@ -26,10 +28,22 @@ const initialValues: Inputs = {
   characters: [],
 }
 
+const CreateQuoteValidationSchema = yup.object().shape({
+  show: yup.string().required("Required").min(1),
+  lines: yup.array().of(
+    yup.object().shape({
+      character: yup.string().required("Character required"),
+      line: yup.string().required("Line required").min(1),
+    })
+  ),
+})
+
 const CreateQuoteForm = () => {
   const { dispatch } = useQuoteState()
+  const toast = useToast()
   return (
     <Formik
+      validationSchema={CreateQuoteValidationSchema}
       validateOnMount={true}
       initialValues={initialValues}
       onSubmit={(values) => {
@@ -40,6 +54,7 @@ const CreateQuoteForm = () => {
         }
         dispatch({ type: "addQuote", payload: quote })
         dispatch({ type: "toggleModal" })
+        toast({ message: "You created a quote!" })
       }}
     >
       {(props) => (

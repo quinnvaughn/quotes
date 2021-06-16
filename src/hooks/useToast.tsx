@@ -80,9 +80,9 @@ export const useToast = () => {
     message,
     delay = 4000,
   }: {
-    type: ToastTypes
+    type?: ToastTypes
     message: string
-    delay: number
+    delay?: number
   }) {
     const id = Math.random().toString().substr(2, 9)
     dispatch({
