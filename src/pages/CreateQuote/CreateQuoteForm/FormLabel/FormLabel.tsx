@@ -9,10 +9,13 @@ type FormLabelProps = {
 const FormLabel: React.FC<FormLabelProps> = (props) => {
   return (
     <StyledLabel aria-required={props.required ? true : false}>
-      <Stack spacing={props.required ? 1 : 3}>
-        {props.required && <RequiredTag>*</RequiredTag>}
+      <Stack spacing={3}>
         <span>{props.text}</span>
-        {!props.required && <OptionalTag>(optional)</OptionalTag>}
+        {props.required ? (
+          <RequiredTag>*</RequiredTag>
+        ) : (
+          <OptionalTag>(optional)</OptionalTag>
+        )}
       </Stack>
     </StyledLabel>
   )
