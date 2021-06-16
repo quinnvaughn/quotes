@@ -9,6 +9,7 @@ import { Characters } from "./Character/Characters"
 import { Stack } from "../../../components/Stack/Stack"
 import { useToast } from "../../../hooks/useToast"
 import { Indication } from "./Indication/Indication"
+import { FormHeader } from "./FormHeader/FormHeader"
 
 export type Line = {
   character: string
@@ -31,6 +32,7 @@ const initialValues: Inputs = {
 
 const CreateQuoteValidationSchema = yup.object().shape({
   show: yup.string().required("Required").min(1),
+  characters: yup.array().of(yup.string()).min(1),
   lines: yup.array().of(
     yup.object().shape({
       character: yup.string().required("Character required"),
@@ -61,6 +63,7 @@ const CreateQuoteForm = () => {
       {(props) => (
         <Form>
           <Stack flexDirection="column" spacing={30}>
+            <FormHeader />
             <Indication />
             <Show />
             <FieldArray

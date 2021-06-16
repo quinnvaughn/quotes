@@ -3,7 +3,7 @@ import { RequiredTag } from "../FormLabel/FormLabel.styles"
 
 const Indication = () => {
   return (
-    <Stack>
+    <Stack spacing={4}>
       <RequiredTag>*</RequiredTag>
       <span>indicates a required field</span>
     </Stack>

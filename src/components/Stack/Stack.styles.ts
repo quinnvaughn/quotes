@@ -9,6 +9,7 @@ const StyledStack = styled.div<StackProps>`
   justify-content: ${(p) => p.justifyContent};
   flex-basis: ${(p) => p.flexBasis};
   flex-wrap: ${(p) => p.flexWrap};
+  align-items: ${(p) => p.alignItems};
 `
 
 type SpacerProps = {
