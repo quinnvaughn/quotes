@@ -9,7 +9,10 @@ const FormHeader = () => {
       <Stack flexDirection="column">
         <Stack justifyContent="space-between" alignItems="center">
           <FormTitle>Create a quote</FormTitle>
-          <FormClose onClick={() => dispatch({ type: "toggleModal" })} />
+          <FormClose
+            aria-label="Close form"
+            onClick={() => dispatch({ type: "toggleModal" })}
+          />
         </Stack>
       </Stack>
     </FormHeaderContainer>
