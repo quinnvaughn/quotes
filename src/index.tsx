@@ -6,12 +6,15 @@ import GlobalStyles from "./theme/GlobalStyles"
 import { QuotesProvider } from "./hooks/useQuoteState"
 import { StyledComponentsThemeProvider } from "./theme/theme"
 import reportWebVitals from "./reportWebVitals"
+import { ToastProvider } from "./hooks/useToast"
 
 const AppWithProviders = () => (
   <StyledComponentsThemeProvider>
     <QuotesProvider>
-      <GlobalStyles />
-      <App />
+      <ToastProvider>
+        <GlobalStyles />
+        <App />
+      </ToastProvider>
     </QuotesProvider>
   </StyledComponentsThemeProvider>
 )
