@@ -3,9 +3,9 @@ import { useState } from "react"
 import { Button } from "../../../../components/Button/Button"
 import { Stack } from "../../../../components/Stack/Stack"
 import { Tag } from "../../../../components/Tag/Tag"
-import { StyledLabel } from "../FormInput/FormInput.styles"
 import { Inputs } from "../CreateQuoteForm"
 import { CharacterInput } from "./Character.styles"
+import { FormLabel } from "../FormLabel/FormLabel"
 
 type Props = {
   arrayHelpers: FieldArrayRenderProps
@@ -37,7 +37,7 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
   return (
     <Stack flexDirection="column" spacing={8}>
       <Stack flexDirection="column" spacing={4}>
-        <StyledLabel>Characters</StyledLabel>
+        <FormLabel text="Characters" required />
         <Stack spacing={4}>
           <CharacterInput
             value={text}

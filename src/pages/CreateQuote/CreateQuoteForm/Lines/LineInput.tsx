@@ -5,9 +5,9 @@ import {
   DeleteLine,
   LineTop,
 } from "./Lines.styles"
-import { StyledLabel } from "../FormInput/FormInput.styles"
 import { Stack } from "../../../../components/Stack/Stack"
 import { Inputs } from "../CreateQuoteForm"
+import { FormLabel } from "../FormLabel/FormLabel"
 
 type LineInputProps = {
   idx: number
@@ -23,7 +23,7 @@ const LineInput: React.FC<LineInputProps> = ({ idx, character, remove }) => {
   return (
     <Stack flexDirection="column" spacing={8}>
       <LineTop>
-        <StyledLabel>Line</StyledLabel>
+        <FormLabel text="Line" required />
         {idx !== 0 && <DeleteLine onClick={() => remove(idx)} />}
       </LineTop>
       <Stack spacing={8}>

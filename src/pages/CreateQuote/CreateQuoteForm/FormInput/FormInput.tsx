@@ -1,15 +1,17 @@
 import React from "react"
 import { Stack } from "../../../../components/Stack/Stack"
-import { StyledInput, StyledLabel } from "./FormInput.styles"
+import { StyledInput } from "./FormInput.styles"
+import { FormLabel } from "../FormLabel/FormLabel"
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string
+  required?: boolean
 }
 
-const FormInput: React.FC<Props> = ({ label, ...rest }) => {
+const FormInput: React.FC<Props> = ({ label, required, ...rest }) => {
   return (
     <Stack flexDirection="column" spacing={4}>
-      <StyledLabel>{label}</StyledLabel>
+      <FormLabel required={required} text={label} />
       <StyledInput {...rest} />
     </Stack>
   )

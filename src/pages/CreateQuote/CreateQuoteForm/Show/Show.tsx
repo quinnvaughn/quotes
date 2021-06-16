@@ -17,6 +17,7 @@ const Show: React.FC<{}> = () => {
       <FormInput
         autoFocus
         value={show}
+        required
         label="Show/Movie"
         onChange={handleChange}
         name="show"

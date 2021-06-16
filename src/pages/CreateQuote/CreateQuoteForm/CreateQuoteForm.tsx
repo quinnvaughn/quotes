@@ -8,6 +8,7 @@ import { Lines } from "./Lines/Lines"
 import { Characters } from "./Character/Characters"
 import { Stack } from "../../../components/Stack/Stack"
 import { useToast } from "../../../hooks/useToast"
+import { Indication } from "./Indication/Indication"
 
 export type Line = {
   character: string
@@ -60,6 +61,7 @@ const CreateQuoteForm = () => {
       {(props) => (
         <Form>
           <Stack flexDirection="column" spacing={30}>
+            <Indication />
             <Show />
             <FieldArray
               name="characters"
