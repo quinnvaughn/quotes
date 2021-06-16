@@ -1,5 +1,5 @@
 import React from "react"
-import { Stack } from "../../../components/Stack/Stack"
+import { Stack } from "../../../../components/Stack/Stack"
 import { FormSectionTitle } from "./FormSection.style"
 
 type Props = {

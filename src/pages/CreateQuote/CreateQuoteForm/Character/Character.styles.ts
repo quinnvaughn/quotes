@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { StyledInput } from "../../FormInput/FormInput.styles"
+import { StyledInput } from "../FormInput/FormInput.styles"
 
 const CharacterInput = styled(StyledInput)`
   flex: 1;

@@ -5,7 +5,7 @@ import {
   DeleteLine,
   LineTop,
 } from "./Lines.styles"
-import { StyledLabel } from "../../FormInput/FormInput.styles"
+import { StyledLabel } from "../FormInput/FormInput.styles"
 import { Stack } from "../../../../components/Stack/Stack"
 import { Inputs } from "../CreateQuoteForm"
 

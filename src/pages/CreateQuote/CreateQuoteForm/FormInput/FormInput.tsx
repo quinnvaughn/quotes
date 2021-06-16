@@ -1,5 +1,5 @@
 import React from "react"
-import { Stack } from "../../../components/Stack/Stack"
+import { Stack } from "../../../../components/Stack/Stack"
 import { StyledInput, StyledLabel } from "./FormInput.styles"
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {

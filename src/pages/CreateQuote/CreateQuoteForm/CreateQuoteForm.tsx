@@ -1,6 +1,6 @@
 import { FieldArray, Formik, Form } from "formik"
 import { Button } from "../../../components/Button/Button"
-import { FormInput } from "../FormInput/FormInput"
+import { FormInput } from "./FormInput/FormInput"
 import { Show } from "./Show/Show"
 import { QuoteType, useQuoteState } from "../../../hooks/useQuoteState"
 import { Lines } from "./Lines/Lines"

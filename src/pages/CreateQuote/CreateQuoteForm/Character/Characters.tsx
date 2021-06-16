@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Button } from "../../../../components/Button/Button"
 import { Stack } from "../../../../components/Stack/Stack"
 import { Tag } from "../../../../components/Tag/Tag"
-import { StyledLabel } from "../../FormInput/FormInput.styles"
+import { StyledLabel } from "../FormInput/FormInput.styles"
 import { Inputs } from "../CreateQuoteForm"
 import { CharacterInput } from "./Character.styles"
 
