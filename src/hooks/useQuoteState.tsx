@@ -111,12 +111,13 @@ const getFilteredQuotes = createSelector(
       quote.show.toLowerCase().includes(lowercaseText)
     )
 
-    const quotesByCharacter = quotes.filter((quote) => {
-      const lines = quote.lines.filter((line) =>
+    const quotesByCharacter = quotes.filter((quote) =>
+      quote.lines.filter((line) =>
         line.character.toLowerCase().includes(lowercaseText)
-      )
-      if (lines.length > 0) return quote
-    })
+      ).length > 0
+        ? true
+        : false
+    )
 
     const allQuotes = [...quotesByShow, ...quotesByCharacter]
 
