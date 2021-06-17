@@ -3,7 +3,7 @@ import { useFormikContext } from "formik"
 import { Tag } from "../../../../components/Tag/Tag"
 import { FormInput } from "../FormInput/FormInput"
 import { getAllShows } from "../utils/getAllShows"
-import { Inputs } from "../CreateQuoteForm"
+import { CreateFormValues } from "../CreateQuoteForm"
 import { Stack } from "../../../../components/Stack/Stack"
 
 const Show: React.FC<{}> = () => {
@@ -12,7 +12,7 @@ const Show: React.FC<{}> = () => {
     handleChange,
     handleBlur,
     setFieldValue,
-  } = useFormikContext<Inputs>()
+  } = useFormikContext<CreateFormValues>()
   return (
     <Stack flexDirection="column" spacing={8}>
       <FormInput

@@ -16,14 +16,14 @@ export type Line = {
   line: string
 }
 
-export type Inputs = {
+export type CreateFormValues = {
   show: string
   link?: string
   lines: Line[]
   characters: string[]
 }
 
-const initialValues: Inputs = {
+const initialValues: CreateFormValues = {
   lines: [{ character: "", line: "" }],
   link: "",
   show: "",

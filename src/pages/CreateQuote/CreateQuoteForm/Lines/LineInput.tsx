@@ -6,7 +6,7 @@ import {
   LineTop,
 } from "./Lines.styles"
 import { Stack } from "../../../../components/Stack/Stack"
-import { Inputs } from "../CreateQuoteForm"
+import { CreateFormValues } from "../CreateQuoteForm"
 import { FormLabel } from "../FormLabel/FormLabel"
 
 type LineInputProps = {
@@ -19,7 +19,7 @@ const LineInput: React.FC<LineInputProps> = ({ idx, character, remove }) => {
   const {
     values: { characters },
     handleChange,
-  } = useFormikContext<Inputs>()
+  } = useFormikContext<CreateFormValues>()
   return (
     <Stack flexDirection="column" spacing={8}>
       <LineTop>

@@ -1,4 +1,4 @@
-import { Inputs } from "../CreateQuoteForm"
+import { CreateFormValues } from "../CreateQuoteForm"
 import { ArrayHelpers, useFormikContext } from "formik"
 import { LineInput } from "./LineInput"
 import { Stack } from "../../../../components/Stack/Stack"
@@ -10,7 +10,7 @@ type LineProps = {
 const LineList: React.FC<LineProps> = ({ remove }) => {
   const {
     values: { lines },
-  } = useFormikContext<Inputs>()
+  } = useFormikContext<CreateFormValues>()
   return (
     <Stack flexDirection="column" spacing={12}>
       {lines.map((line, idx) => (

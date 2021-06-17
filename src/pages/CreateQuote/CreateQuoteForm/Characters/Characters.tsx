@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Button } from "../../../../components/Button/Button"
 import { Stack } from "../../../../components/Stack/Stack"
 import { Tag } from "../../../../components/Tag/Tag"
-import { Inputs } from "../CreateQuoteForm"
+import { CreateFormValues } from "../CreateQuoteForm"
 import { CharacterInput } from "./Character.styles"
 import { FormLabel } from "../FormLabel/FormLabel"
 import { useEffect } from "react"
@@ -17,9 +17,10 @@ type Props = {
 const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
   const {
     setFieldValue,
-    touched,
     values: { show, lines, characters },
-  } = useFormikContext<Inputs>()
+    touched,
+  } = useFormikContext<CreateFormValues>()
+
   const { state } = useQuoteState()
   const debouncedShow = useDebounce(show, 300)
   const [text, setText] = useState("")
@@ -64,14 +65,7 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
       setFieldValue("characters", [])
       addPreviousCharacters(grabPreviousCharacters(state.quotes))
     }
-  }, [
-    debouncedShow,
-    touched.show,
-    setFieldValue,
-    state.quotes,
-    characters,
-    insert,
-  ])
+  }, [debouncedShow, touched.show])
 
   return (
     <Stack flexDirection="column" spacing={8}>
