@@ -9,7 +9,6 @@ import { FormLabel } from "../FormLabel/FormLabel"
 import { useEffect } from "react"
 import { QuoteType, useQuoteState } from "../../../../hooks/useQuoteState"
 import { useDebounce } from "../../../../hooks/useDebounce"
-import { useCallback } from "react"
 
 type Props = {
   arrayHelpers: FieldArrayRenderProps
@@ -36,41 +35,43 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
     setFieldValue("lines", newLines)
   }
 
-  const grabPreviousCharacters = (quotes: QuoteType[]) => {
-    const allCharacters = quotes.reduce<string[]>((chars, quote) => {
-      if (quote.show === show) {
-        const showChars = quote.lines.map((line) => line.character)
-        return [...chars, ...showChars]
-      }
-      return chars
-    }, [])
-    return [...new Set(allCharacters)]
-  }
-
-  const addPreviousCharacters = (chars: string[]) => {
-    for (let char of chars) {
-      if (!characters.includes(char)) {
-        insert(characters.length, char)
-      }
-    }
-  }
-
   const addCharacter = () => {
     insert(characters.length, text)
     setText("")
   }
 
-  const memoizedGrab = useCallback(
-    (quotes: QuoteType[]) => grabPreviousCharacters(quotes),
-    [grabPreviousCharacters]
-  )
-
   useEffect(() => {
+    const grabPreviousCharacters = (quotes: QuoteType[]) => {
+      const allCharacters = quotes.reduce<string[]>((chars, quote) => {
+        if (quote.show === debouncedShow) {
+          const showChars = quote.lines.map((line) => line.character)
+          return [...chars, ...showChars]
+        }
+        return chars
+      }, [])
+      return [...new Set(allCharacters)]
+    }
+
+    const addPreviousCharacters = (chars: string[]) => {
+      for (let char of chars) {
+        if (!characters.includes(char)) {
+          insert(characters.length, char)
+        }
+      }
+    }
+
     if (debouncedShow.length > 0 && touched.show) {
       setFieldValue("characters", [])
-      addPreviousCharacters(memoizedGrab(state.quotes))
+      addPreviousCharacters(grabPreviousCharacters(state.quotes))
     }
-  }, [debouncedShow, touched.show])
+  }, [
+    debouncedShow,
+    touched.show,
+    setFieldValue,
+    state.quotes,
+    characters,
+    insert,
+  ])
 
   return (
     <Stack flexDirection="column" spacing={8}>
