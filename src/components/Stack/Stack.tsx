@@ -32,7 +32,6 @@ const Stack: React.FC<StackProps> = ({
       if (!child) {
         return false
       }
-
       return true
     })
   }, [children])
