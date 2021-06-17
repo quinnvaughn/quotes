@@ -10,6 +10,7 @@ const StyledStack = styled.div<StackProps>`
   flex-basis: ${(p) => p.flexBasis};
   flex-wrap: ${(p) => p.flexWrap};
   align-items: ${(p) => p.alignItems};
+  gap: ${(p) => p.gap}px;
 `
 
 type SpacerProps = {

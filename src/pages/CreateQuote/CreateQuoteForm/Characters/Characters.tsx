@@ -6,6 +6,10 @@ import { Tag } from "../../../../components/Tag/Tag"
 import { Inputs } from "../CreateQuoteForm"
 import { CharacterInput } from "./Character.styles"
 import { FormLabel } from "../FormLabel/FormLabel"
+import { useEffect } from "react"
+import { QuoteType, useQuoteState } from "../../../../hooks/useQuoteState"
+import { useDebounce } from "../../../../hooks/useDebounce"
+import { useCallback } from "react"
 
 type Props = {
   arrayHelpers: FieldArrayRenderProps
@@ -14,8 +18,11 @@ type Props = {
 const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
   const {
     setFieldValue,
-    values: { lines, characters },
+    touched,
+    values: { show, lines, characters },
   } = useFormikContext<Inputs>()
+  const { state } = useQuoteState()
+  const debouncedShow = useDebounce(show, 300)
   const [text, setText] = useState("")
 
   const removeCharactersEverywhere = (character: string, idx: number) => {
@@ -29,10 +36,41 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
     setFieldValue("lines", newLines)
   }
 
+  const grabPreviousCharacters = (quotes: QuoteType[]) => {
+    const allCharacters = quotes.reduce<string[]>((chars, quote) => {
+      if (quote.show === show) {
+        const showChars = quote.lines.map((line) => line.character)
+        return [...chars, ...showChars]
+      }
+      return chars
+    }, [])
+    return [...new Set(allCharacters)]
+  }
+
+  const addPreviousCharacters = (chars: string[]) => {
+    for (let char of chars) {
+      if (!characters.includes(char)) {
+        insert(characters.length, char)
+      }
+    }
+  }
+
   const addCharacter = () => {
     insert(characters.length, text)
     setText("")
   }
+
+  const memoizedGrab = useCallback(
+    (quotes: QuoteType[]) => grabPreviousCharacters(quotes),
+    [grabPreviousCharacters]
+  )
+
+  useEffect(() => {
+    if (debouncedShow.length > 0 && touched.show) {
+      setFieldValue("characters", [])
+      addPreviousCharacters(memoizedGrab(state.quotes))
+    }
+  }, [debouncedShow, touched.show])
 
   return (
     <Stack flexDirection="column" spacing={8}>
@@ -53,7 +91,7 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
           </Button>
         </Stack>
       </Stack>
-      <Stack spacing={4}>
+      <Stack gap={4} flexWrap="wrap">
         {characters.map((ch, idx) => (
           <Tag
             text={ch}

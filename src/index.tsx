@@ -1,7 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
-import "./index.css"
 import GlobalStyles from "./theme/GlobalStyles"
 import { QuotesProvider } from "./hooks/useQuoteState"
 import { StyledComponentsThemeProvider } from "./theme/theme"

@@ -10,19 +10,21 @@ const Show: React.FC<{}> = () => {
   const {
     values: { show },
     handleChange,
+    handleBlur,
     setFieldValue,
   } = useFormikContext<Inputs>()
   return (
     <Stack flexDirection="column" spacing={8}>
       <FormInput
         autoFocus
+        onBlur={handleBlur}
         value={show}
         required
-        label="Show/Movie"
+        label="Name of show or movie"
         onChange={handleChange}
         name="show"
       />
-      <Stack spacing={4}>
+      <Stack gap={4} flexWrap="wrap">
         {getAllShows().map((show) => (
           <Tag
             text={show}

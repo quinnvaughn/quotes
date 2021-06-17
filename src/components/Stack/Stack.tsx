@@ -12,6 +12,7 @@ export type StackProps = {
   flexBasis?: Property.FlexBasis
   flexWrap?: Property.FlexWrap
   justifyContent?: Property.JustifyContent
+  gap?: number
 }
 
 const Stack: React.FC<StackProps> = ({
@@ -23,6 +24,7 @@ const Stack: React.FC<StackProps> = ({
   flexBasis = "auto",
   justifyContent = "flex-start",
   flexWrap = "nowrap",
+  gap,
   children,
 }) => {
   const childrenArr = useMemo(() => {
@@ -46,6 +48,7 @@ const Stack: React.FC<StackProps> = ({
   }, [flexDirection, spacing])
   return (
     <StyledStack
+      gap={gap}
       spacing={spacing}
       alignItems={alignItems}
       flexBasis={flexBasis}
