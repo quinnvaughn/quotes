@@ -13,7 +13,7 @@ const Tag: React.FC<TagProps> = ({ text, onClick, removable }) => {
   return (
     <TagContainer onClick={() => (removable ? {} : onClick())}>
       {removable ? (
-        <Stack spacing={4}>
+        <Stack spacing={4} alignItems="center">
           <span>{text}</span>
           <AiOutlineClose onClick={onClick} />
         </Stack>

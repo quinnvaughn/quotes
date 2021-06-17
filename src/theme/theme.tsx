@@ -18,8 +18,8 @@ const theme: DefaultTheme = {
     },
     brand: {
       primary: "#7510F7",
-      secondary: "#048A81",
-      tertiary: "#54C6EB",
+      secondary: "#17A974",
+      tertiary: "#ED217C",
     },
     background: {
       main: "#FBFBFF",
