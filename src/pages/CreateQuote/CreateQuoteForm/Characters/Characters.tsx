@@ -106,7 +106,7 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
             onChange={(e) => setText(e.target.value)}
           />
           <Button
-            disabled={text.length === 0}
+            disabled={text.length === 0 || characters.includes(text)}
             type="button"
             secondary
             onClick={() => addCharacter()}
