@@ -36,7 +36,9 @@ const LineInput: React.FC<LineInputProps> = ({ idx, character, remove }) => {
             Select a character
           </option>
           {characters.map((ch) => (
-            <option value={ch}>{ch}</option>
+            <option key={ch} value={ch}>
+              {ch}
+            </option>
           ))}
         </CustomSelect>
         <CustomLineInput onChange={handleChange} name={`lines.${idx}.line`} />

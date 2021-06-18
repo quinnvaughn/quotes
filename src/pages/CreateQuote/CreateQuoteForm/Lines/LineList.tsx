@@ -14,7 +14,12 @@ const LineList: React.FC<LineProps> = ({ remove }) => {
   return (
     <Stack flexDirection="column" spacing={12}>
       {lines.map((line, idx) => (
-        <LineInput remove={remove} character={line.character} idx={idx} />
+        <LineInput
+          key={idx}
+          remove={remove}
+          character={line.character}
+          idx={idx}
+        />
       ))}
     </Stack>
   )

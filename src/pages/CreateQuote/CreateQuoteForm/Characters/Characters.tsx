@@ -8,7 +8,8 @@ import { CharacterInput } from "./Character.styles"
 import { FormLabel } from "../FormLabel/FormLabel"
 import { useEffect } from "react"
 import { QuoteType, useQuoteState } from "../../../../hooks/useQuoteState"
-import { useDebounce } from "../../../../hooks/useDebounce"
+import { BehaviorSubject } from "rxjs"
+import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators"
 
 type Props = {
   arrayHelpers: FieldArrayRenderProps
@@ -18,11 +19,65 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
   const {
     setFieldValue,
     values: { show, lines, characters },
-    touched,
   } = useFormikContext<CreateFormValues>()
 
   const { state } = useQuoteState()
-  const debouncedShow = useDebounce(show, 300)
+  const [subject, setSubject] = useState<BehaviorSubject<string> | null>(null)
+
+  useEffect(() => {
+    if (subject) {
+      return subject.next(show)
+    }
+  }, [show])
+
+  useEffect(() => {
+    const getPreviousCharacters = (quotes: QuoteType[], show: string) => {
+      const allCharacters = quotes.reduce<string[]>((chars, quote) => {
+        if (quote.show === show) {
+          const showChars = quote.lines.map((line) => line.character)
+          return [...chars, ...showChars]
+        }
+        return chars
+      }, [])
+      return [...new Set(allCharacters)]
+    }
+
+    const addPreviousCharacters = (chars: string[]) => {
+      for (let char of chars) {
+        if (!characters.includes(char)) {
+          insert(characters.length, char)
+        }
+      }
+    }
+
+    const clearCharacters = () => {
+      setFieldValue("characters", [])
+    }
+
+    if (subject === null) {
+      const sub = new BehaviorSubject<string>("")
+      setSubject(sub)
+    } else {
+      const observable = subject
+        .pipe(
+          map((s) => s.trim()),
+          distinctUntilChanged(),
+          filter((s) => s.length >= 2),
+          debounceTime(300)
+        )
+        .subscribe((show) => {
+          clearCharacters()
+          const previousCharacters = getPreviousCharacters(state.quotes, show)
+          addPreviousCharacters(previousCharacters)
+        })
+
+      return () => {
+        observable.unsubscribe()
+        subject.unsubscribe()
+      }
+    }
+  }, [subject])
+
   const [text, setText] = useState("")
 
   const removeCharactersEverywhere = (character: string, idx: number) => {
@@ -40,32 +95,6 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
     insert(characters.length, text)
     setText("")
   }
-
-  useEffect(() => {
-    const grabPreviousCharacters = (quotes: QuoteType[]) => {
-      const allCharacters = quotes.reduce<string[]>((chars, quote) => {
-        if (quote.show === debouncedShow) {
-          const showChars = quote.lines.map((line) => line.character)
-          return [...chars, ...showChars]
-        }
-        return chars
-      }, [])
-      return [...new Set(allCharacters)]
-    }
-
-    const addPreviousCharacters = (chars: string[]) => {
-      for (let char of chars) {
-        if (!characters.includes(char)) {
-          insert(characters.length, char)
-        }
-      }
-    }
-
-    if (debouncedShow.length > 0 && touched.show) {
-      setFieldValue("characters", [])
-      addPreviousCharacters(grabPreviousCharacters(state.quotes))
-    }
-  }, [debouncedShow, touched.show])
 
   return (
     <Stack flexDirection="column" spacing={8}>
@@ -89,6 +118,7 @@ const Characters: React.FC<Props> = ({ arrayHelpers: { insert, remove } }) => {
       <Stack gap={4} flexWrap="wrap">
         {characters.map((ch, idx) => (
           <Tag
+            key={ch}
             text={ch}
             removable
             onClick={() => removeCharactersEverywhere(ch, idx)}

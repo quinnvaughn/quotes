@@ -6,7 +6,10 @@ import CreateQuoteForm from "./CreateQuoteForm/CreateQuoteForm"
 const CreateQuote = () => {
   const { dispatch } = useQuoteState()
   return (
-    <Dialog onDismiss={() => dispatch({ type: "toggleModal" })}>
+    <Dialog
+      aria-label="Create Form Modal"
+      onDismiss={() => dispatch({ type: "toggleModal" })}
+    >
       <CreateQuoteForm />
     </Dialog>
   )
