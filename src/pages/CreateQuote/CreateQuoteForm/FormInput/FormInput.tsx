@@ -12,7 +12,7 @@ const FormInput: React.FC<Props> = ({ label, required, ...rest }) => {
   return (
     <Stack flexDirection="column" spacing={4}>
       <FormLabel required={required} text={label} />
-      <StyledInput {...rest} />
+      <StyledInput {...rest} autoComplete="off" />
     </Stack>
   )
 }
